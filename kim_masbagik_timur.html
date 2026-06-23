@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIM Desa Masbagik Timur - Portal Informasi Resmi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom Colors based on request: Green and Blue */
+        :root {
+            --primary-blue: #1e3a8a; /* Tailwind blue-900 */
+            --primary-green: #166534; /* Tailwind green-800 */
+            --accent-green: #22c55e; /* Tailwind green-500 */
+        }
+        .bg-primary-blue { background-color: var(--primary-blue); }
+        .text-primary-blue { color: var(--primary-blue); }
+        .bg-primary-green { background-color: var(--primary-green); }
+        .text-primary-green { color: var(--primary-green); }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Simple tab system */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-link.active { border-bottom: 2px solid var(--accent-green); font-weight: bold; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="bg-primary-blue text-white text-xs py-1">
+            <div class="container mx-auto px-4 flex justify-between">
+                <span>Portal Resmi Kelompok Informasi Masyarakat (KIM)</span>
+                <span><i class="fas fa-phone"></i> +62 812-XXXX-XXXX | <i class="fas fa-envelope"></i> info@kimmasbagiktimur.id</span>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showTab('beranda')">
+                <!-- Placeholder Logo -->
+                <div class="w-10 h-10 bg-primary-green rounded-full flex items-center justify-center text-white font-bold text-xl">KIM</div>
+                <div>
+                    <h1 class="font-bold text-xl text-primary-blue leading-tight">Desa Masbagik Timur</h1>
+                    <p class="text-xs text-gray-500">Kabupaten Lombok Timur</p>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-primary-blue text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <button class="nav-link active hover:text-primary-green transition" onclick="showTab('beranda')">Beranda</button>
+                <button class="nav-link hover:text-primary-green transition" onclick="showTab('profil')">Profil Desa</button>
+                <button class="nav-link hover:text-primary-green transition" onclick="showTab('berita')">Berita</button>
+                <button class="nav-link hover:text-primary-green transition" onclick="showTab('pengumuman')">Pengumuman</button>
+                <button class="nav-link hover:text-primary-green transition" onclick="showTab('galeri')">Galeri</button>
+                <button class="nav-link hover:text-primary-green transition" onclick="showTab('kontak')">Kontak</button>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 py-2">
+            <div class="flex flex-col space-y-2 px-4">
+                <button class="text-left py-2 border-b" onclick="showTab('beranda'); toggleMobileMenu()">Beranda</button>
+                <button class="text-left py-2 border-b" onclick="showTab('profil'); toggleMobileMenu()">Profil Desa</button>
+                <button class="text-left py-2 border-b" onclick="showTab('berita'); toggleMobileMenu()">Berita</button>
+                <button class="text-left py-2 border-b" onclick="showTab('pengumuman'); toggleMobileMenu()">Pengumuman</button>
+                <button class="text-left py-2 border-b" onclick="showTab('galeri'); toggleMobileMenu()">Galeri</button>
+                <button class="text-left py-2" onclick="showTab('kontak'); toggleMobileMenu()">Kontak</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="min-h-screen">
+
+        <!-- ================= TAB: BERANDA ================= -->
+        <section id="beranda" class="tab-content active">
+            <!-- Hero Section -->
+            <div class="relative bg-gray-900 text-white py-24 px-4 text-center overflow-hidden">
+                <div class="absolute inset-0 opacity-40">
+                    <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Pemandangan Desa" class="w-full h-full object-cover">
+                </div>
+                <div class="relative z-10 container mx-auto max-w-3xl">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">Selamat Datang di Portal KIM<br>Desa Masbagik Timur</h2>
+                    <p class="text-lg md:text-xl mb-8 drop-shadow-md">Pusat informasi akurat, transparan, dan terpercaya mengenai kegiatan dan pembangunan di Desa Masbagik Timur, Kabupaten Lombok Timur.</p>
+                    <div class="space-x-4">
+                        <button onclick="showTab('berita')" class="bg-primary-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition shadow-lg">Berita Terbaru</button>
+                        <button onclick="showTab('pengumuman')" class="bg-white text-primary-green hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition shadow-lg">Pengumuman</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="container mx-auto px-4 -mt-8 relative z-20">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center cursor-pointer hover:shadow-xl transition" onclick="showTab('profil')">
+                        <div class="w-12 h-12 bg-blue-100 text-primary-blue rounded-full flex items-center justify-center mx-auto mb-3 text-xl"><i class="fas fa-info-circle"></i></div>
+                        <h3 class="font-bold">Profil Desa</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center cursor-pointer hover:shadow-xl transition" onclick="showTab('berita')">
+                        <div class="w-12 h-12 bg-green-100 text-primary-green rounded-full flex items-center justify-center mx-auto mb-3 text-xl"><i class="fas fa-newspaper"></i></div>
+                        <h3 class="font-bold">Portal Berita</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center cursor-pointer hover:shadow-xl transition">
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl"><i class="fas fa-file-alt"></i></div>
+                        <h3 class="font-bold">Layanan Surat</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center cursor-pointer hover:shadow-xl transition" onclick="showTab('kontak')">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl"><i class="fas fa-comments"></i></div>
+                        <h3 class="font-bold">Lapor/Aspirasi</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ringkasan Profil & Berita Terbaru -->
+            <div class="container mx-auto px-4 py-16">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Ringkasan Profil -->
+                    <div class="md:col-span-1 bg-white p-6 rounded-lg shadow border-t-4 border-primary-green">
+                        <h3 class="text-xl font-bold text-primary-blue mb-4">Sekilas Masbagik Timur</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">Desa Masbagik Timur adalah salah satu desa yang terletak di Kecamatan Masbagik, Kabupaten Lombok Timur. Kami berkomitmen mewujudkan pemerintahan desa yang transparan dan melayani dengan sepenuh hati.</p>
+                        <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2"><i class="fas fa-users w-5"></i> <span>Penduduk: +/- 8.500 Jiwa</span></div>
+                        <div class="flex items-center space-x-2 text-sm text-gray-500 mb-6"><i class="fas fa-map-marked-alt w-5"></i> <span>Kec. Masbagik, Lombok Timur</span></div>
+                        <button onclick="showTab('profil')" class="text-primary-green font-semibold hover:underline">Selengkapnya &rarr;</button>
+                    </div>
+
+                    <!-- Berita Terbaru (Highlight) -->
+                    <div class="md:col-span-2">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-primary-blue border-l-4 border-primary-green pl-3">Berita Terbaru</h3>
+                            <button onclick="showTab('berita')" class="text-sm text-gray-500 hover:text-primary-blue">Lihat Semua</button>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <!-- Card Berita 1 -->
+                            <div class="bg-white rounded-lg shadow overflow-hidden group cursor-pointer" onclick="showTab('berita')">
+                                <div class="h-48 bg-gray-200 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1574682718165-22e374d6c4a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pembangunan" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                </div>
+                                <div class="p-4">
+                                    <span class="text-xs font-semibold text-white bg-primary-green px-2 py-1 rounded">Pembangunan</span>
+                                    <h4 class="font-bold text-lg mt-2 group-hover:text-primary-blue transition">Pembangunan Saluran Irigasi Subak Tuntas 100%</h4>
+                                    <p class="text-sm text-gray-500 mt-2"><i class="far fa-clock"></i> 24 Mei 2026</p>
+                                </div>
+                            </div>
+                            <!-- Card Berita 2 -->
+                            <div class="bg-white rounded-lg shadow overflow-hidden group cursor-pointer" onclick="showTab('berita')">
+                                <div class="h-48 bg-gray-200 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rapat" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                </div>
+                                <div class="p-4">
+                                    <span class="text-xs font-semibold text-white bg-primary-blue px-2 py-1 rounded">Pemerintahan</span>
+                                    <h4 class="font-bold text-lg mt-2 group-hover:text-primary-blue transition">Kunjungan Bupati Lombok Timur ke Masbagik Timur</h4>
+                                    <p class="text-sm text-gray-500 mt-2"><i class="far fa-clock"></i> 20 Mei 2026</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: PROFIL DESA ================= -->
+        <section id="profil" class="tab-content py-12">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h2 class="text-3xl font-bold text-primary-blue mb-8 border-b-2 border-primary-green pb-2">Profil Desa Masbagik Timur</h2>
+                
+                <div class="bg-white p-8 rounded-lg shadow mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-primary-blue"><i class="fas fa-history mr-2"></i> Sejarah Singkat</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        (Ini adalah contoh teks dummy) Desa Masbagik Timur merupakan pemekaran dari desa induk Masbagik. Terbentuk pada tahun [Tahun], desa ini terus berkembang menjadi wilayah yang mandiri dengan potensi pertanian dan kerajinan lokal yang kuat. Nama "Masbagik" sendiri memiliki akar sejarah yang panjang dalam kebudayaan Sasak di Lombok Timur.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-primary-blue text-white p-8 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4"><i class="fas fa-eye mr-2"></i> Visi</h3>
+                        <p class="italic">"Terwujudnya Desa Masbagik Timur yang Mandiri, Sejahtera, Religius, dan Berbudaya melalui Tata Kelola Pemerintahan yang Bersih dan Transparan."</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-xl font-bold mb-4 text-primary-green"><i class="fas fa-bullseye mr-2"></i> Misi</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Meningkatkan kualitas pelayanan publik.</li>
+                            <li>Mengembangkan potensi ekonomi kerakyatan.</li>
+                            <li>Membangun infrastruktur desa yang memadai.</li>
+                            <li>Meningkatkan kualitas pendidikan dan kesehatan masyarakat.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-6 text-primary-blue text-center">Struktur Organisasi Pemerintahan Desa</h3>
+                    <!-- Placeholder untuk Gambar Struktur Organisasi -->
+                    <div class="w-full h-64 bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-500 rounded flex-col">
+                        <i class="fas fa-sitemap text-4xl mb-2"></i>
+                        <p>[Area untuk memasukkan Gambar/Bagan Struktur Organisasi Desa]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: BERITA ================= -->
+        <section id="berita" class="tab-content py-12">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b-2 border-gray-200 pb-4">
+                    <div>
+                        <h2 class="text-3xl font-bold text-primary-blue">Berita & Publikasi</h2>
+                        <p class="text-gray-600 mt-2">Informasi resmi dari Pemda Lombok Timur dan Pemdes Masbagik Timur</p>
+                    </div>
+                    <!-- Filter/Search Placeholder -->
+                    <div class="mt-4 md:mt-0 flex space-x-2">
+                        <select class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary-blue">
+                            <option>Semua Kategori</option>
+                            <option>Pemerintahan</option>
+                            <option>Pembangunan</option>
+                            <option>Sosial & Ekonomi</option>
+                        </select>
+                        <div class="relative">
+                            <input type="text" placeholder="Cari berita..." class="border border-gray-300 rounded pl-3 pr-8 py-2 text-sm focus:outline-none focus:border-primary-blue">
+                            <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Berita Item 1 -->
+                    <div class="bg-white rounded-lg shadow hover:shadow-lg transition flex flex-col">
+                        <div class="h-48 bg-gray-200"><img src="https://images.unsplash.com/photo-1574682718165-22e374d6c4a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="News" class="w-full h-full object-cover"></div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-semibold text-white bg-primary-green px-2 py-1 rounded">Pembangunan</span>
+                                <span class="text-xs text-gray-500"><i class="far fa-calendar"></i> 24 Mei 2026</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800 line-clamp-2">Pembangunan Saluran Irigasi Subak Tuntas 100%</h3>
+                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">Pemerintah Desa Masbagik Timur mengumumkan selesainya proyek irigasi yang diharapkan dapat meningkatkan hasil panen petani lokal musim ini...</p>
+                            <button class="mt-auto text-primary-blue font-semibold text-sm hover:underline text-left">Baca Selengkapnya &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Berita Item 2 -->
+                    <div class="bg-white rounded-lg shadow hover:shadow-lg transition flex flex-col">
+                        <div class="h-48 bg-gray-200"><img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="News" class="w-full h-full object-cover"></div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-semibold text-white bg-primary-blue px-2 py-1 rounded">Pemerintahan</span>
+                                <span class="text-xs text-gray-500"><i class="far fa-calendar"></i> 20 Mei 2026</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800 line-clamp-2">Kunjungan Bupati Lombok Timur ke Masbagik Timur</h3>
+                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">Bupati Lombok Timur melakukan peninjauan langsung terhadap pelayanan administrasi terpadu di kantor desa...</p>
+                            <button class="mt-auto text-primary-blue font-semibold text-sm hover:underline text-left">Baca Selengkapnya &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Berita Item 3 (Pemda) -->
+                    <div class="bg-white rounded-lg shadow border-2 border-yellow-400 hover:shadow-lg transition flex flex-col relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-bl-lg z-10">Info Pemda</div>
+                        <div class="h-48 bg-gray-200"><img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="News" class="w-full h-full object-cover"></div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-semibold text-white bg-purple-600 px-2 py-1 rounded">Pendidikan</span>
+                                <span class="text-xs text-gray-500"><i class="far fa-calendar"></i> 18 Mei 2026</span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-gray-800 line-clamp-2">Pemda Lotim Buka Beasiswa Berprestasi 2026</h3>
+                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">Pemerintah Kabupaten Lombok Timur resmi membuka pendaftaran beasiswa bagi mahasiswa asal Lotim. Cek persyaratannya di sini...</p>
+                            <button class="mt-auto text-primary-blue font-semibold text-sm hover:underline text-left">Baca Selengkapnya &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: PENGUMUMAN ================= -->
+        <section id="pengumuman" class="tab-content py-12 bg-gray-100">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h2 class="text-3xl font-bold text-primary-blue mb-8 text-center"><i class="fas fa-bullhorn text-red-500 mr-2"></i> Pengumuman & Agenda Desa</h2>
+                
+                <div class="space-y-4">
+                    <!-- Pengumuman 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-red-500 flex flex-col sm:flex-row gap-4 items-start sm:items-center hover:shadow-md transition">
+                        <div class="bg-red-50 text-red-600 p-3 rounded text-center min-w-[80px]">
+                            <div class="text-sm font-bold uppercase">Mei</div>
+                            <div class="text-2xl font-black">28</div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-lg text-gray-800">Penyaluran BLT Dana Desa Tahap II</h3>
+                            <p class="text-sm text-gray-600 mt-1">Diberitahukan kepada KPM (Keluarga Penerima Manfaat) bahwa penyaluran BLT akan dilaksanakan di Aula Kantor Desa mulai pukul 08:00 WITA. Harap membawa KK dan KTP asli.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pengumuman 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500 flex flex-col sm:flex-row gap-4 items-start sm:items-center hover:shadow-md transition">
+                        <div class="bg-blue-50 text-blue-600 p-3 rounded text-center min-w-[80px]">
+                            <div class="text-sm font-bold uppercase">Juni</div>
+                            <div class="text-2xl font-black">05</div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-lg text-gray-800">Kerja Bakti Massal Persiapan Lomba Desa</h3>
+                            <p class="text-sm text-gray-600 mt-1">Diharapkan kehadiran seluruh warga masyarakat Masbagik Timur untuk kegiatan gotong royong membersihkan lingkungan masing-masing dusun.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: GALERI ================= -->
+        <section id="galeri" class="tab-content py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-primary-blue mb-2 text-center">Galeri Kegiatan</h2>
+                <p class="text-center text-gray-500 mb-8">Dokumentasi visual kegiatan Pemerintah Desa dan Masyarakat</p>
+                
+                <!-- Simulasi Plugin Galeri (Grid) -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative">
+                        <img src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Galeri 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300 flex items-center justify-center">
+                            <span class="text-white opacity-0 group-hover:opacity-100"><i class="fas fa-search-plus text-2xl"></i></span>
+                        </div>
+                    </div>
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative">
+                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Galeri 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative">
+                        <img src="https://images.unsplash.com/photo-1516214104703-d2507c614b15?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Galeri 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative">
+                        <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Galeri 4" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative md:col-span-2 md:row-span-2">
+                        <!-- Foto Besar -->
+                        <img src="https://images.unsplash.com/photo-1574682718165-22e374d6c4a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Galeri 5" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                            <p class="text-white font-semibold">Gotong Royong Perbaikan Jalan Desa</p>
+                        </div>
+                    </div>
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative">
+                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Galeri 6" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="aspect-square bg-gray-200 rounded overflow-hidden group cursor-pointer relative">
+                        <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Galeri 7" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: KONTAK & ASPIRASI ================= -->
+        <section id="kontak" class="tab-content py-12 bg-gray-50">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <h2 class="text-3xl font-bold text-primary-blue mb-8 text-center border-b-2 border-primary-green pb-2 inline-block mx-auto">Hubungi Kami & Layanan Aspirasi</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <!-- Info Kontak & Maps -->
+                    <div>
+                        <div class="bg-white p-6 rounded-lg shadow mb-6">
+                            <h3 class="font-bold text-xl mb-4 text-primary-blue">Informasi Kontak</h3>
+                            <ul class="space-y-4 text-gray-600">
+                                <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-primary-green"></i> <span>Jl. Raya Masbagik - Sikur, Desa Masbagik Timur,<br>Kec. Masbagik, Kab. Lombok Timur, NTB 83661</span></li>
+                                <li class="flex items-center"><i class="fab fa-whatsapp text-xl mr-3 text-green-500"></i> <span>+62 812-XXXX-XXXX (WhatsApp Center)</span></li>
+                                <li class="flex items-center"><i class="fas fa-envelope mr-3 text-primary-blue"></i> <span>pemdes@kimmasbagiktimur.id</span></li>
+                            </ul>
+                            
+                            <div class="flex space-x-4 mt-6">
+                                <a href="#" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center hover:bg-pink-700"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Google Maps Embed Placeholder -->
+                        <div class="w-full h-64 bg-gray-300 rounded-lg overflow-hidden relative">
+                            <!-- In real WordPress, put actual iframe embed code here -->
+                            <div class="absolute inset-0 flex items-center justify-center flex-col text-gray-500">
+                                <i class="fas fa-map-marked-alt text-4xl mb-2"></i>
+                                <span>[Google Maps Embed]</span>
+                                <span class="text-xs">Titik Lokasi Kantor Desa Masbagik Timur</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Aspirasi (Simulasi WPForms/CF7) -->
+                    <div class="bg-white p-8 rounded-lg shadow border-t-4 border-primary-blue">
+                        <h3 class="font-bold text-2xl mb-2 text-gray-800">Kotak Aspirasi Masyarakat</h3>
+                        <p class="text-sm text-gray-500 mb-6">Sampaikan kritik, saran, atau laporan Anda terkait pelayanan dan pembangunan di desa. Laporan Anda akan ditindaklanjuti secara rahasia.</p>
+                        
+                        <form onsubmit="event.preventDefault(); alert('Ini adalah simulasi. Di WordPress asli, form ini akan mengirim email ke admin.');">
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap (Sesuai KTP) *</label>
+                                <input type="text" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp / HP *</label>
+                                <input type="tel" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Kategori Laporan *</label>
+                                <select required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent">
+                                    <option value="">Pilih Kategori...</option>
+                                    <option value="infrastruktur">Infrastruktur & Pembangunan</option>
+                                    <option value="pelayanan">Pelayanan Administrasi</option>
+                                    <option value="keamanan">Ketertiban & Keamanan</option>
+                                    <option value="sosial">Bantuan Sosial</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Isi Pesan/Laporan *</label>
+                                <textarea rows="4" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent" placeholder="Tuliskan detail pesan Anda di sini..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-primary-blue hover:bg-blue-800 text-white font-bold py-3 px-4 rounded transition">Kirim Aspirasi <i class="fas fa-paper-plane ml-2"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-10">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8 border-b border-gray-700 pb-8">
+            <div>
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-primary-green rounded-full flex items-center justify-center text-white font-bold text-xl">KIM</div>
+                    <h2 class="font-bold text-xl text-white">KIM Masbagik Timur</h2>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed mb-4">Portal resmi Kelompok Informasi Masyarakat (KIM) Desa Masbagik Timur, Kabupaten Lombok Timur. Dikelola oleh Pemerintah Desa untuk transparansi informasi publik.</p>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2 inline-block">Tautan Cepat</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><button onclick="showTab('beranda')" class="hover:text-primary-green transition">Beranda</button></li>
+                    <li><button onclick="showTab('profil')" class="hover:text-primary-green transition">Profil Desa</button></li>
+                    <li><button onclick="showTab('pengumuman')" class="hover:text-primary-green transition">Agenda & Pengumuman</button></li>
+                    <li><a href="#" class="hover:text-primary-green transition">Pemkab Lombok Timur</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-bold mb-4 border-b border-gray-700 pb-2 inline-block">Jam Pelayanan Kantor</h3>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex justify-between border-b border-gray-800 pb-1"><span>Senin - Kamis</span> <span>08:00 - 14:00 WITA</span></li>
+                    <li class="flex justify-between border-b border-gray-800 pb-1"><span>Jumat</span> <span>08:00 - 11:30 WITA</span></li>
+                    <li class="flex justify-between border-b border-gray-800 pb-1"><span>Sabtu</span> <span>08:00 - 12:30 WITA</span></li>
+                    <li class="flex justify-between text-red-400"><span>Minggu / Libur Nasional</span> <span>Tutup</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-6 text-center text-sm text-gray-500">
+            <p>&copy; 2026 Pemerintah Desa Masbagik Timur. Hak Cipta Dilindungi.</p>
+            <p class="mt-1 text-xs">Simulasi Purwarupa UI/UX - Didesain untuk Implementasi WordPress</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab System Logic
+        function showTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Update active state in desktop navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Simple logic to match onclick text with tabId
+                if(link.getAttribute('onclick').includes(tabId)){
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll to top when changing tabs
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

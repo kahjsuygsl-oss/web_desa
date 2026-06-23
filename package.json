@@ -1,0 +1,25 @@
+{
+  "name": "web-desa",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @desa/publik",
+    "dev:publik": "npm run dev -w @desa/publik",
+    "dev:admin": "npm run dev -w @desa/admin",
+    "build": "npm run build -w @desa/publik && npm run build -w @desa/admin",
+    "build:publik": "npm run build -w @desa/publik",
+    "build:admin": "npm run build -w @desa/admin",
+    "lint": "npm run lint -w @desa/publik && npm run lint -w @desa/admin"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
