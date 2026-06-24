@@ -9,17 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Tema biru + hijau (mengikuti purwarupa KIM Masbagik Timur).
         primary: {
-          DEFAULT: "#0F766E",
+          DEFAULT: "#1E3A8A", // biru (blue-900)
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#14B8A6",
+          DEFAULT: "#166534", // hijau tua (green-800)
           foreground: "#FFFFFF",
         },
         accent: {
-          DEFAULT: "#F59E0B",
-          foreground: "#1F2937",
+          DEFAULT: "#22C55E", // hijau terang (green-500)
+          foreground: "#052E16",
         },
         background: "#F8FAFC",
         foreground: "#1F2937",

@@ -47,6 +47,9 @@ export const FALLBACK_SETTINGS: SettingsMap = {
   whatsapp: "6281900000000",
   jamOperasional:
     "Senin–Kamis 08.00–14.00, Jumat 08.00–11.30, Sabtu 08.00–12.30 WITA",
+  // Gambar latar hero (pemandangan desa). Bisa ditimpa lewat pengaturan.
+  heroImage:
+    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1950&q=80",
 };
 
 /** Statistik ringkas (sesuai data yang tersedia pada purwarupa). */
@@ -69,7 +72,7 @@ export const FALLBACK_NEWS: News[] = [
     content:
       "<p>Pemerintah Desa Masbagik Timur mengumumkan selesainya proyek irigasi yang diharapkan dapat meningkatkan hasil panen petani lokal musim ini.</p>",
     thumbnail:
-      "https://images.unsplash.com/photo-1574682718165-22e374d6c4a9?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
     author: "Admin Desa",
     views: 0,
     status: "published",
@@ -142,55 +145,69 @@ export const FALLBACK_EVENTS: EventItem[] = [
   },
 ];
 
-/** Galeri foto contoh dari purwarupa. */
+/** Galeri foto contoh kegiatan & potensi desa. */
 export const FALLBACK_PHOTOS: Photo[] = [
   {
     id: "foto-1",
-    title: "Gotong Royong Perbaikan Jalan Desa",
+    title: "Gotong Royong Warga Desa",
     imageUrl:
-      "https://images.unsplash.com/photo-1574682718165-22e374d6c4a9?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-24T00:00:00.000Z",
   },
   {
     id: "foto-2",
-    title: "Kegiatan Masyarakat Desa",
+    title: "Pemandangan Sawah Masbagik Timur",
     imageUrl:
-      "https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-23T00:00:00.000Z",
   },
   {
     id: "foto-3",
-    title: "Suasana Desa Masbagik Timur",
+    title: "Panen Padi Sawah Subak",
     imageUrl:
-      "https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-22T00:00:00.000Z",
   },
   {
     id: "foto-4",
     title: "Rapat Perencanaan Pembangunan",
     imageUrl:
-      "https://images.unsplash.com/photo-1516214104703-d2507c614b15?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-21T00:00:00.000Z",
   },
   {
     id: "foto-5",
-    title: "Dokumentasi Kegiatan Desa",
+    title: "Musyawarah Perangkat Desa",
     imageUrl:
-      "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-20T00:00:00.000Z",
   },
   {
     id: "foto-6",
-    title: "Pelayanan Administrasi Terpadu",
+    title: "Program Pendidikan & Beasiswa",
     imageUrl:
-      "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-19T00:00:00.000Z",
   },
   {
     id: "foto-7",
-    title: "Program Pendidikan Masyarakat",
+    title: "Posyandu dan Layanan Kesehatan",
     imageUrl:
-      "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=800&q=80",
     createdAt: "2026-05-18T00:00:00.000Z",
+  },
+  {
+    id: "foto-8",
+    title: "Dokumentasi Kegiatan Desa",
+    imageUrl:
+      "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80",
+    createdAt: "2026-05-17T00:00:00.000Z",
+  },
+  {
+    id: "foto-9",
+    title: "UMKM dan Kerajinan Lokal",
+    imageUrl:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80",
+    createdAt: "2026-05-16T00:00:00.000Z",
   },
 ];

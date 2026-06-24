@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --primary: #0f766e;
-  --secondary: #14b8a6;
-  --accent: #f59e0b;
+  --primary: #1e3a8a;
+  --secondary: #166534;
+  --accent: #22c55e;
 }
 
 html {
@@ -103,7 +103,7 @@ body {
   margin-bottom: 1rem;
 }
 .prose-berita a {
-  color: #0f766e;
+  color: #1e3a8a;
   text-decoration: underline;
 }
 .prose-berita img {
@@ -113,7 +113,7 @@ body {
   height: auto;
 }
 .prose-berita blockquote {
-  border-left: 4px solid #14b8a6;
+  border-left: 4px solid #166534;
   padding-left: 1rem;
   font-style: italic;
   color: #475569;

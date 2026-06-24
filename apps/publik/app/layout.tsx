@@ -22,6 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: `${nama} — Website Resmi`, template: `%s — ${nama}` },
     description: slogan,
     keywords: ["desa", "website desa", nama, "berita desa", "pemerintahan desa"],
+    icons: {
+      icon: "/favicon.png",
+    },
     openGraph: {
       title: `${nama} — Website Resmi`,
       description: slogan,

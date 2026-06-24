@@ -81,6 +81,7 @@ export default async function HomePage() {
   const topPhotos = photos.length > 0 ? photos : FALLBACK_PHOTOS;
 
   const namaDesa = settings.namaDesa || "Desa Digital";
+  const heroImage = settings.heroImage;
   const misiList = (settings.misi || "")
     .split(/[;\n]/)
     .map((m) => m.trim())
@@ -92,32 +93,49 @@ export default async function HomePage() {
   return (
     <>
       {/* ===================== HERO ===================== */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-secondary text-white">
-        {/* Dekorasi: blob mengambang + pola titik */}
+      <section className="relative overflow-hidden bg-primary text-white">
+        {/* Foto latar desa (diambil dari purwarupa) */}
+        <Image
+          src={heroImage}
+          alt={`Pemandangan ${namaDesa}`}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        {/* Overlay tema biru→hijau + lapisan gelap agar teks terbaca */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-secondary/85"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25"
+        />
+        {/* Dekorasi: blob mengambang */}
         <div
           aria-hidden
           className="animate-blob animate-float-slow absolute -left-24 -top-24 h-72 w-72 bg-white/10 blur-2xl"
         />
         <div
           aria-hidden
-          className="animate-blob animate-float-slow absolute -bottom-32 -right-16 h-80 w-80 bg-accent/20 blur-2xl"
+          className="animate-blob animate-float-slow absolute -bottom-32 -right-16 h-80 w-80 bg-accent/25 blur-2xl"
           style={{ animationDelay: "1.5s" }}
         />
-        <div aria-hidden className="bg-dots absolute inset-0 opacity-60" />
 
-        <div className="container relative z-10 py-20 text-center md:py-28">
+        <div className="container relative z-10 py-24 text-center md:py-32">
           <p className="animate-fade-up mx-auto mb-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium backdrop-blur">
             <Sparkles className="h-4 w-4" />
-            Selamat Datang di Website Resmi
+            Portal Resmi Kelompok Informasi Masyarakat (KIM)
           </p>
           <h1
-            className="animate-fade-up text-4xl font-extrabold leading-tight md:text-6xl"
+            className="animate-fade-up text-4xl font-extrabold leading-tight drop-shadow-lg md:text-6xl"
             style={{ animationDelay: "80ms" }}
           >
             {namaDesa}
           </h1>
           <p
-            className="animate-fade-up mx-auto mt-4 max-w-2xl text-lg text-white/90"
+            className="animate-fade-up mx-auto mt-4 max-w-2xl text-lg text-white/90 drop-shadow-md"
             style={{ animationDelay: "160ms" }}
           >
             {settings.slogan || "Desa Transparan, Desa Digital, Desa Maju"}
@@ -159,6 +177,31 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
+
+          {/* Kilas galeri — foto kegiatan desa */}
+          {topPhotos.length > 0 && (
+            <div
+              className="animate-fade-up mt-12 flex flex-wrap justify-center gap-3"
+              style={{ animationDelay: "400ms" }}
+            >
+              {topPhotos.slice(0, 5).map((p) => (
+                <Link
+                  key={p.id}
+                  href="/galeri"
+                  title={p.title}
+                  className="group relative h-16 w-24 shrink-0 overflow-hidden rounded-xl ring-2 ring-white/30 transition hover:ring-white/80 sm:h-20 sm:w-28"
+                >
+                  <Image
+                    src={p.imageUrl}
+                    alt={p.title}
+                    fill
+                    sizes="120px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Lengkungan pemisah ke bawah */}
@@ -309,7 +352,7 @@ export default async function HomePage() {
               {upcoming.map((e, i) => (
                 <Reveal key={e.id} delay={i * 90}>
                   <Card className="h-full border-l-4 border-l-accent p-5">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-accent">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
                       <CalendarDays className="h-4 w-4" />
                       {formatTanggal(e.eventDate)}
                     </div>
