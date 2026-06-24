@@ -19,7 +19,7 @@ export function Navbar({ namaDesa }: { namaDesa: string }) {
         <Link href="/" className="flex items-center gap-3">
           <div className="relative h-9 w-9 overflow-hidden rounded-lg bg-primary">
             <Image
-              src="/favicon.png"
+              src="/favicon.jpeg"
               alt="Logo"
               fill
               sizes="36px"

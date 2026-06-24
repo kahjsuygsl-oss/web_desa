@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: slogan,
     keywords: ["desa", "website desa", nama, "berita desa", "pemerintahan desa"],
     icons: {
-      icon: "/favicon.png",
+      icon: "/favicon.jpeg",
     },
     openGraph: {
       title: `${nama} — Website Resmi`,

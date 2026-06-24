@@ -27,23 +27,36 @@ async function apiCall<T>(
 ): Promise<T> {
   const url = getEnv("APPS_SCRIPT_URL");
   const token = getEnv("APPS_SCRIPT_TOKEN");
+  const controller = new AbortController();
+  const timeoutMs = 5000;
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token, action, sheet, payload }),
-    redirect: "follow",
-    // Catatan: fetch POST tidak pernah di-cache Next secara default, jadi
-    // data selalu fresh. Caching di sisi publik diatur oleh readAll() via
-    // unstable_cache (lihat di bawah) ketika DATA_REVALIDATE > 0.
-  });
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, action, sheet, payload }),
+      redirect: "follow",
+      signal: controller.signal,
+      // Catatan: fetch POST tidak pernah di-cache Next secara default, jadi
+      // data selalu fresh. Caching di sisi publik diatur oleh readAll() via
+      // unstable_cache (lihat di bawah) ketika DATA_REVALIDATE > 0.
+    });
 
-  if (!res.ok) {
-    throw new Error(`Apps Script HTTP ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`Apps Script HTTP ${res.status}`);
+    }
+    const body = (await res.json()) as ApiResponse<T>;
+    if (body.error) throw new Error(`Apps Script: ${body.error}`);
+    return body.data as T;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`Apps Script request timed out after ${timeoutMs}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
-  const body = (await res.json()) as ApiResponse<T>;
-  if (body.error) throw new Error(`Apps Script: ${body.error}`);
-  return body.data as T;
 }
 
 /** Baca seluruh baris sebuah tab. Di sisi publik bisa di-cache lewat DATA_REVALIDATE. */

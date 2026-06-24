@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Admin — Website Desa",
   description: "Dashboard pengelolaan website desa",
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.jpeg",
   },
   robots: { index: false, follow: false },
 };
