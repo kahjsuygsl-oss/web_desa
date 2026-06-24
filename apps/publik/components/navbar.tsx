@@ -1,4 +1,5 @@
 import { Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const links = [
@@ -15,10 +16,16 @@ export function Navbar({ namaDesa }: { namaDesa: string }) {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur">
       <nav className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary text-sm font-bold text-white">
-            D
-          </span>
+        <Link href="/" className="flex items-center gap-3">
+          <div className="relative h-9 w-9 overflow-hidden rounded-lg bg-primary">
+            <Image
+              src="/favicon.png"
+              alt="Logo"
+              fill
+              sizes="36px"
+              className="object-cover"
+            />
+          </div>
           <span className="text-lg font-bold text-primary">{namaDesa}</span>
         </Link>
 
