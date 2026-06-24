@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { settingsRepo } from "@desa/lib";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { withFallbackSettings } from "@/lib/fallback";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -10,7 +11,10 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const s = await settingsRepo.getSettings().catch(() => ({}) as Record<string, string>);
+  const live = await settingsRepo
+    .getSettings()
+    .catch(() => ({}) as Record<string, string>);
+  const s = withFallbackSettings(live);
   const nama = s.namaDesa || "Website Desa Digital";
   const slogan = s.slogan || "Pusat informasi dan transparansi desa";
   return {
@@ -33,9 +37,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await settingsRepo
+  const live = await settingsRepo
     .getSettings()
     .catch(() => ({}) as Record<string, string>);
+  const settings = withFallbackSettings(live);
 
   return (
     <html lang="id" className={inter.variable}>

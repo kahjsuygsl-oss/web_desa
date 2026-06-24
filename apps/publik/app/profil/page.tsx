@@ -2,6 +2,7 @@ import { BookOpen, Eye, Target, Users } from "lucide-react";
 import type { Metadata } from "next";
 import { settingsRepo } from "@desa/lib";
 import { PageHeader } from "@/components/page-header";
+import { withFallbackSettings } from "@/lib/fallback";
 
 export const revalidate = 600;
 export const metadata: Metadata = {
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilPage() {
-  const s = await settingsRepo.getSettings().catch(() => ({}) as Record<string, string>);
+  const live = await settingsRepo
+    .getSettings()
+    .catch(() => ({}) as Record<string, string>);
+  const s = withFallbackSettings(live);
   const misiList = (s.misi || "")
     .split(/[;\n]/)
     .map((m) => m.trim())

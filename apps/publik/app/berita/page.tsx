@@ -3,6 +3,7 @@ import Link from "next/link";
 import { newsRepo } from "@desa/lib";
 import { NewsCard } from "@/components/news-card";
 import { PageHeader } from "@/components/page-header";
+import { FALLBACK_NEWS } from "@/lib/fallback";
 
 export const revalidate = 600;
 
@@ -17,7 +18,8 @@ export default async function BeritaPage({
   searchParams: Promise<{ kategori?: string }>;
 }) {
   const { kategori } = await searchParams;
-  const all = await newsRepo.getPublishedNews().catch(() => []);
+  const live = await newsRepo.getPublishedNews().catch(() => []);
+  const all = live.length > 0 ? live : FALLBACK_NEWS;
   const news = kategori ? all.filter((n) => n.category === kategori) : all;
 
   const categories = Array.from(new Set(all.map((n) => n.category))).sort();

@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "i.ytimg.com" },
       { protocol: "https", hostname: "img.youtube.com" },
+      // Foto contoh (fallback) Desa Masbagik Timur.
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };

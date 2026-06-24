@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { settingsRepo } from "@desa/lib";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
+import { withFallbackSettings } from "@/lib/fallback";
 
 export const revalidate = 600;
 export const metadata: Metadata = {
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default async function KontakPage() {
-  const s = await settingsRepo.getSettings().catch(() => ({}) as Record<string, string>);
+  const live = await settingsRepo
+    .getSettings()
+    .catch(() => ({}) as Record<string, string>);
+  const s = withFallbackSettings(live);
   const wa = (s.whatsapp || "").replace(/[^0-9]/g, "");
 
   const items = [

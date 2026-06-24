@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { galleryRepo, youtubeId } from "@desa/lib";
 import { PageHeader } from "@/components/page-header";
+import { FALLBACK_PHOTOS } from "@/lib/fallback";
 
 export const revalidate = 600;
 export const metadata: Metadata = {
@@ -10,10 +11,11 @@ export const metadata: Metadata = {
 };
 
 export default async function GaleriPage() {
-  const [photos, videos] = await Promise.all([
+  const [livePhotos, videos] = await Promise.all([
     galleryRepo.getAllPhotos().catch(() => []),
     galleryRepo.getAllVideos().catch(() => []),
   ]);
+  const photos = livePhotos.length > 0 ? livePhotos : FALLBACK_PHOTOS;
 
   return (
     <>

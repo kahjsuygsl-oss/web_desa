@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { eventsRepo, formatTanggal } from "@desa/lib";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
+import { FALLBACK_EVENTS } from "@/lib/fallback";
 
 export const revalidate = 600;
 export const metadata: Metadata = {
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function AgendaPage() {
-  const events = await eventsRepo.getUpcomingEvents().catch(() => []);
+  const live = await eventsRepo.getUpcomingEvents().catch(() => []);
+  const events = live.length > 0 ? live : FALLBACK_EVENTS;
 
   return (
     <>

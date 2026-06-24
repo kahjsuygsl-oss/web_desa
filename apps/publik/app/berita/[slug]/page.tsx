@@ -6,13 +6,22 @@ import { notFound } from "next/navigation";
 import DOMPurify from "isomorphic-dompurify";
 import { formatTanggal, newsRepo } from "@desa/lib";
 import { Badge } from "@/components/ui/card";
+import { FALLBACK_NEWS } from "@/lib/fallback";
 import { ViewTracker } from "./view-tracker";
 
 export const revalidate = 600;
 
+/** Ambil berita berdasarkan slug; jatuh ke contoh bila belum ada di Sheets. */
+async function findNews(slug: string) {
+  const live = await newsRepo.getNewsBySlug(slug).catch(() => null);
+  if (live) return live;
+  return FALLBACK_NEWS.find((n) => n.slug === slug) ?? null;
+}
+
 export async function generateStaticParams() {
   const news = await newsRepo.getPublishedNews().catch(() => []);
-  return news.map((n) => ({ slug: n.slug }));
+  const slugs = news.length > 0 ? news : FALLBACK_NEWS;
+  return slugs.map((n) => ({ slug: n.slug }));
 }
 
 export async function generateMetadata({
@@ -21,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const news = await newsRepo.getNewsBySlug(slug).catch(() => null);
+  const news = await findNews(slug);
   if (!news) return { title: "Berita tidak ditemukan" };
   return {
     title: news.title,
@@ -43,7 +52,7 @@ export default async function DetailBeritaPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const news = await newsRepo.getNewsBySlug(slug).catch(() => null);
+  const news = await findNews(slug);
 
   if (!news || news.status !== "published") notFound();
 
