@@ -20,9 +20,9 @@ export function withFallbackSettings(live: SettingsMap): SettingsMap {
 
 /** Identitas, profil, dan kontak desa. */
 export const FALLBACK_SETTINGS: SettingsMap = {
-  namaDesa: "Desa Masbagik Timur",
+  namaDesa: "KIM Masbagik Timur",
   slogan:
-    "Pusat informasi akurat, transparan, dan terpercaya — Kabupaten Lombok Timur.",
+    "Kelompok Informasi Masyarakat (KIM)",
   sambutan:
     "Selamat datang di Portal Resmi Kelompok Informasi Masyarakat (KIM) Desa Masbagik Timur. " +
     "Desa Masbagik Timur adalah salah satu desa yang terletak di Kecamatan Masbagik, Kabupaten Lombok Timur. " +
