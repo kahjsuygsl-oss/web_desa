@@ -2,8 +2,10 @@ import {
   ArrowRight,
   CalendarDays,
   Home as HomeIcon,
+  ImageIcon,
   MapPin,
   Newspaper,
+  User,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
