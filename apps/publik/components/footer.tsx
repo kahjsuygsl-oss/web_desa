@@ -38,7 +38,7 @@ export function Footer({ settings }: { settings: SettingsMap }) {
       </div>
 
       <div className="container flex flex-col items-center justify-between gap-4 border-t border-white/10 py-4 text-sm text-white/70 md:flex-row">
-        <div>© {new Date().getFullYear()} {settings.namaDesa ?? "Website Desa"}. Seluruh hak cipta dilindungi.</div>
+        
         <div className="flex items-center gap-3">
           <span className="text-sm font-semibold">Suport :</span>
           <img
@@ -50,7 +50,7 @@ export function Footer({ settings }: { settings: SettingsMap }) {
       </div>
 
       <div className="border-t border-white/10 py-4 text-center text-sm text-white/70">
-        © {new Date().getFullYear()} {settings.namaDesa ?? "Website Desa"}. Seluruh hak cipta dilindungi.
+        © {new Date().getFullYear()} {settings.namaDesa ?? "Website Desa"}. <Powered>Powered by R'aByate Solution</Powered>. All rights reserved.
       </div>
     </footer>
   );
