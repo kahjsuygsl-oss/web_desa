@@ -56,6 +56,76 @@ const MENU_HIGHLIGHT = [
   },
 ] as const;
 
+const FALLBACK_NEWS = [
+  {
+    id: "fallback-1",
+    title: "Pembangunan Saluran Irigasi Subak Tuntas 100%",
+    slug: "pembangunan-saluran-irigasi-subak-tuntas-100",
+    category: "Pembangunan",
+    excerpt:
+      "Pemerintah Desa Masbagik Timur mengumumkan selesainya proyek irigasi yang diharapkan meningkatkan hasil panen lokal.",
+    content:
+      "<p>Pembangunan saluran irigasi tahap pertama telah selesai. Masyarakat tani kini diharapkan mendapatkan pasokan air yang lebih merata untuk musim tanam berikutnya.</p>",
+    thumbnail:
+      "https://images.unsplash.com/photo-1574682718165-22e374d6c4a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    author: "Admin Desa",
+    views: 0,
+    status: "published",
+    publishedAt: new Date().toISOString(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "fallback-2",
+    title: "Kunjungan Bupati Lombok Timur ke Masbagik Timur",
+    slug: "kunjungan-bupati-lombok-timur-ke-masbagik-timur",
+    category: "Pemerintahan",
+    excerpt:
+      "Kegiatan kunjungan resmi dari Bupati Lombok Timur bertujuan mempercepat program desa mandiri.",
+    content:
+      "<p>Kunjungan tersebut membahas rencana pengembangan infrastruktur desa dan program pemberdayaan ekonomi masyarakat.</p>",
+    thumbnail:
+      "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    author: "Admin Desa",
+    views: 0,
+    status: "published",
+    publishedAt: new Date().toISOString(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+const FALLBACK_PHOTOS = [
+  {
+    id: "fallback-photo-1",
+    title: "Gotong Royong Warga Desa",
+    imageUrl:
+      "https://images.unsplash.com/photo-1528605105345-5344ea20e269?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "fallback-photo-2",
+    title: "Suasana Pertemuan Desa",
+    imageUrl:
+      "https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "fallback-photo-3",
+    title: "Rapat Perencanaan Pembangunan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1516214104703-d2507c614b15?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "fallback-photo-4",
+    title: "Dokumentasi Kegiatan Desa",
+    imageUrl:
+      "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    createdAt: new Date().toISOString(),
+  },
+];
+
 export default async function HomePage() {
   const [settings, stats, latestNews, upcoming, photos] = await Promise.all([
     settingsRepo.getSettings().catch(() => ({}) as Record<string, string>),
@@ -73,6 +143,9 @@ export default async function HomePage() {
   const hasProfil = Boolean(
     settings.sambutan || settings.sejarah || settings.visi || misiList.length,
   );
+
+  const topNews = latestNews.length > 0 ? latestNews : FALLBACK_NEWS;
+  const topPhotos = photos.length > 0 ? photos : FALLBACK_PHOTOS;
 
   return (
     <>
@@ -267,9 +340,9 @@ export default async function HomePage() {
           subtitle="Informasi dan kabar terkini dari desa."
           href="/berita"
         />
-        {latestNews.length > 0 ? (
+        {topNews.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {latestNews.map((n, i) => (
+            {topNews.map((n, i) => (
               <Reveal key={n.id} delay={i * 90} className="group h-full">
                 <NewsCard news={n} />
               </Reveal>
@@ -313,7 +386,7 @@ export default async function HomePage() {
       )}
 
       {/* ===================== GALERI (HIGHLIGHT) ===================== */}
-      {photos.length > 0 && (
+      {topPhotos.length > 0 && (
         <section className="container py-16">
           <SectionHeader
             icon={<ImageIcon className="h-5 w-5" />}
@@ -322,7 +395,7 @@ export default async function HomePage() {
             href="/galeri"
           />
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-            {photos.map((p, i) => (
+            {topPhotos.map((p, i) => (
               <Reveal
                 key={p.id}
                 delay={i * 60}
