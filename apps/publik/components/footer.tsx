@@ -50,7 +50,7 @@ export function Footer({ settings }: { settings: SettingsMap }) {
       </div>
 
       <div className="border-t border-white/10 py-4 text-center text-sm text-white/70">
-        © {new Date().getFullYear()} {settings.namaDesa ?? "Website Desa"}. <Powered>Powered by R'aByate Solution</Powered>. All rights reserved.
+        © {new Date().getFullYear()} {settings.namaDesa ?? "Website Desa"}. Powered by R'aByate Solution. All rights reserved.
       </div>
     </footer>
   );
