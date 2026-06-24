@@ -33,8 +33,8 @@ export async function createNewsAction(
   }
   try {
     await newsRepo.createNews(parsed.data);
-  } catch {
-    return { error: "Gagal menyimpan berita" };
+  } catch (e) {
+    return { error: `Gagal menyimpan berita: ${e instanceof Error ? e.message : String(e)}` };
   }
   revalidatePath("/berita");
   revalidatePublic("/berita");
@@ -55,8 +55,8 @@ export async function updateNewsAction(
   try {
     const updated = await newsRepo.updateNews(id, parsed.data);
     if (!updated) return { error: "Berita tidak ditemukan" };
-  } catch {
-    return { error: "Gagal memperbarui berita" };
+  } catch (e) {
+    return { error: `Gagal memperbarui berita: ${e instanceof Error ? e.message : String(e)}` };
   }
   revalidatePath("/berita");
   revalidatePublic("/berita");
