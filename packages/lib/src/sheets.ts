@@ -1,12 +1,27 @@
 import type { SheetName } from "./types";
+import {
+  appendRow as supabaseAppendRow,
+  deleteRow as supabaseDeleteRow,
+  patchRow as supabasePatchRow,
+  readAll as supabaseReadAll,
+  updateRow as supabaseUpdateRow,
+} from "./supabase";
+
+function isSupabaseEnabled(): boolean {
+  const backend = process.env.DATA_BACKEND?.toLowerCase();
+  if (backend === "supabase") return true;
+  if (backend === "apps_script") return false;
+
+  return Boolean(
+    process.env.SUPABASE_URL &&
+      (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY),
+  );
+}
 
 /**
- * Akses spreadsheet melalui Google Apps Script Web App.
- * Tidak perlu Service Account: cukup URL Web App + token rahasia.
- * Fungsi-fungsi di sini meniru API lama (readAll/appendRow/...) agar
- * repositori di folder repos/ tidak perlu berubah.
+ * Akses data melalui Supabase bila konfigurasi tersedia; bila tidak,
+ * jatuh ke Google Apps Script Web App yang lama.
  */
-
 function getEnv(name: string): string {
   const v = process.env[name];
   if (!v) throw new Error(`Env ${name} belum di-set`);
@@ -38,9 +53,6 @@ async function apiCall<T>(
       body: JSON.stringify({ token, action, sheet, payload }),
       redirect: "follow",
       signal: controller.signal,
-      // Catatan: fetch POST tidak pernah di-cache Next secara default, jadi
-      // data selalu fresh. Caching di sisi publik diatur oleh readAll() via
-      // unstable_cache (lihat di bawah) ketika DATA_REVALIDATE > 0.
     });
 
     if (!res.ok) {
@@ -61,10 +73,13 @@ async function apiCall<T>(
 
 /** Baca seluruh baris sebuah tab. Di sisi publik bisa di-cache lewat DATA_REVALIDATE. */
 export async function readAll<T>(sheet: SheetName): Promise<T[]> {
+  if (isSupabaseEnabled()) {
+    return supabaseReadAll<T>(sheet);
+  }
+
   const revalidate = Number(process.env.DATA_REVALIDATE ?? "0");
 
   if (revalidate > 0) {
-    // Cache hasil di Data Cache Next (khusus app publik yang men-set DATA_REVALIDATE).
     const { unstable_cache } = await import("next/cache");
     const cached = unstable_cache(
       async () => apiCall<T[]>("readAll", sheet),
@@ -82,6 +97,11 @@ export async function appendRow<T extends Record<string, unknown>>(
   sheet: SheetName,
   obj: T,
 ): Promise<void> {
+  if (isSupabaseEnabled()) {
+    await supabaseAppendRow(sheet, obj);
+    return;
+  }
+
   await apiCall<boolean>("append", sheet, { obj });
 }
 
@@ -92,6 +112,10 @@ export async function updateRow<T extends Record<string, unknown>>(
   obj: T,
   keyColumn = "id",
 ): Promise<boolean> {
+  if (isSupabaseEnabled()) {
+    return supabaseUpdateRow(sheet, keyValue, obj, keyColumn);
+  }
+
   return (await apiCall<boolean>("update", sheet, { keyValue, obj, keyColumn })) ?? false;
 }
 
@@ -101,15 +125,23 @@ export async function deleteRow(
   keyValue: string,
   keyColumn = "id",
 ): Promise<boolean> {
+  if (isSupabaseEnabled()) {
+    return supabaseDeleteRow(sheet, keyValue, keyColumn);
+  }
+
   return (await apiCall<boolean>("delete", sheet, { keyValue, keyColumn })) ?? false;
 }
 
-/** Patch sebagian kolom pada satu baris (merge di sisi Apps Script). */
+/** Patch sebagian kolom pada satu baris. */
 export async function patchRow<T extends Record<string, unknown>>(
   sheet: SheetName,
   keyValue: string,
   patch: Partial<T>,
   keyColumn = "id",
 ): Promise<boolean> {
+  if (isSupabaseEnabled()) {
+    return supabasePatchRow(sheet, keyValue, patch, keyColumn);
+  }
+
   return (await apiCall<boolean>("patch", sheet, { keyValue, patch, keyColumn })) ?? false;
 }

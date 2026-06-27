@@ -18,7 +18,7 @@ export async function uploadImageAction(formData: FormData): Promise<UploadRespo
   const invalid = validateImage(file);
   if (invalid) return { error: invalid };
   try {
-    const { url } = await uploadFile(file, "images", "image");
+    const { url } = await uploadFile(file, "images", "images");
     return { url };
   } catch {
     return { error: "Gagal mengunggah gambar" };
@@ -35,7 +35,7 @@ export async function uploadDocumentAction(formData: FormData): Promise<UploadRe
   const invalid = validateDocument(file);
   if (invalid) return { error: invalid };
   try {
-    const { url } = await uploadFile(file, "documents", "raw");
+    const { url } = await uploadFile(file, "documents", "documents");
     return { url };
   } catch {
     return { error: "Gagal mengunggah dokumen" };

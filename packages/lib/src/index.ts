@@ -4,7 +4,7 @@ export * from "./utils";
 
 // Auth & penyimpanan (server-only)
 export * from "./auth";
-export * from "./cloudinary";
+export * from "./storage";
 
 // Validasi
 export * from "./validation";
